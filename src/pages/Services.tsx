@@ -19,17 +19,17 @@ export default function Services({ onNavigate }: ServicesProps) {
     setTimeout(() => setIsLoaded(true), 300);
   }, []);
 
-  // Intersection Observer for card animations
+  // Intersection Observer for minimal service animations
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('card-visible');
+            entry.target.classList.add('service-visible');
           }
         });
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.2, rootMargin: '0px 0px -100px 0px' }
     );
 
     cardsRef.current.forEach((card) => {
@@ -178,59 +178,48 @@ export default function Services({ onNavigate }: ServicesProps) {
         </div>
       </section>
 
-      {/* Services Grid Section */}
-      <section ref={servicesGridRef} className="relative py-24 bg-gradient-to-b from-[#0a0a0a] to-[#0f172a]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12 reveal-heading">
-            <h2 className="text-5xl md:text-6xl font-bold text-white mb-4">Explore our Service</h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto rounded-full"></div>
+      {/* Minimalist Services Gallery */}
+      <section ref={servicesGridRef} className="relative py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-8 md:px-12 lg:px-16">
+          {/* Section Header */}
+          <div className="mb-24 text-center">
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-black mb-6 tracking-tight">
+              What We Offer
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto font-light">
+              Comprehensive solutions designed to elevate your digital presence
+            </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          {/* Two-Column Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-24">
             {servicesList.map((service, index) => (
-                <div
-                  key={index}
-                  ref={(el) => (cardsRef.current[index] = el)}
-                  className="service-card group relative bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-cyan-400/50 transition-all duration-500 overflow-hidden"
-                  onMouseEnter={() => setHoveredCard(index)}
-                  onMouseLeave={() => setHoveredCard(null)}
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  {/* Animated Background Gradient */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
-
-                  {/* Card Corner Accent */}
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-cyan-500/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                  {/* Image Placeholder */}
-                  <div className="relative mb-6 rounded-xl overflow-hidden h-48 bg-gray-800/50 group-hover:scale-105 transition-transform duration-500">
-                    <img
-                      src="/portfolio/jeton.png"
-                      alt={service.title}
-                      className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500"
-                    />
-                    <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-30 mix-blend-overlay`}></div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="relative z-10">
-                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors duration-300">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-400 text-sm leading-relaxed line-clamp-4 group-hover:text-gray-300 transition-colors duration-300">
-                      {service.description}
-                    </p>
-                  </div>
-
-                  {/* Hover Glow Effect */}
-                  <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 pointer-events-none`}></div>
-
-                  {/* Animated Border */}
-                  <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${service.gradient} p-[1px]`}>
-                      <div className="w-full h-full bg-transparent rounded-2xl"></div>
-                    </div>
-                  </div>
+              <div
+                key={index}
+                ref={(el) => (cardsRef.current[index] = el)}
+                className="minimal-service-item group relative py-12 border-t border-gray-200"
+              >
+                {/* Number */}
+                <div className="absolute -left-2 top-8 text-7xl font-bold text-gray-200 transition-all duration-500 group-hover:text-gray-300 group-hover:scale-110">
+                  {String(index + 1).padStart(2, '0')}
                 </div>
+
+                {/* Content */}
+                <div className="pl-24 transition-all duration-500 group-hover:pl-28">
+                  {/* Title */}
+                  <h3 className="text-2xl md:text-3xl font-bold text-black mb-4 tracking-tight">
+                    {service.title}
+                  </h3>
+
+                  {/* Expanding Line */}
+                  <div className="minimal-line w-0 h-px bg-black mb-6 transition-all duration-700 group-hover:w-16"></div>
+
+                  {/* Description */}
+                  <p className="text-gray-600 leading-relaxed font-light">
+                    {service.description}
+                  </p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -392,6 +381,143 @@ export default function Services({ onNavigate }: ServicesProps) {
 
       {/* Enhanced Modern Animation Styles */}
       <style jsx>{`
+        /* ============================================
+           MINIMALIST GALLERY ANIMATIONS
+           ============================================ */
+
+        /* Service item reveal animation */
+        @keyframes service-reveal {
+          from {
+            opacity: 0;
+            transform: translateY(40px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes number-slide {
+          from {
+            opacity: 0;
+            transform: translateX(-30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes line-expand {
+          from {
+            width: 0;
+          }
+          to {
+            width: 4rem;
+          }
+        }
+
+        /* Base state - hidden */
+        .minimal-service-item {
+          opacity: 0;
+          transform: translateY(40px);
+          transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Revealed state */
+        .minimal-service-item.service-visible {
+          animation: service-reveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        /* Number animation when visible */
+        .minimal-service-item.service-visible > div:first-child {
+          animation: number-slide 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Line expansion on reveal */
+        .minimal-service-item.service-visible .minimal-line {
+          animation: line-expand 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+        }
+
+        /* Stagger delays for sequential animation */
+        .minimal-service-item:nth-child(1) { animation-delay: 0s; }
+        .minimal-service-item:nth-child(2) { animation-delay: 0.1s; }
+        .minimal-service-item:nth-child(3) { animation-delay: 0.2s; }
+        .minimal-service-item:nth-child(4) { animation-delay: 0.3s; }
+        .minimal-service-item:nth-child(5) { animation-delay: 0.4s; }
+        .minimal-service-item:nth-child(6) { animation-delay: 0.5s; }
+        .minimal-service-item:nth-child(7) { animation-delay: 0s; }
+        .minimal-service-item:nth-child(8) { animation-delay: 0.1s; }
+        .minimal-service-item:nth-child(9) { animation-delay: 0.2s; }
+        .minimal-service-item:nth-child(10) { animation-delay: 0.3s; }
+        .minimal-service-item:nth-child(11) { animation-delay: 0.4s; }
+        .minimal-service-item:nth-child(12) { animation-delay: 0.5s; }
+
+        /* Focus state for accessibility */
+        .minimal-service-item:focus-within {
+          outline: 2px solid black;
+          outline-offset: 8px;
+        }
+
+        /* Typography refinements */
+        .minimal-service-item h3 {
+          font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+          letter-spacing: -0.02em;
+        }
+
+        .minimal-service-item p {
+          font-family: 'Inter', 'DM Sans', sans-serif;
+          line-height: 1.7;
+          max-width: 90%;
+        }
+
+        /* Smooth easing for all transitions */
+        .minimal-service-item * {
+          transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 1024px) {
+          .minimal-service-item {
+            padding-left: 0;
+          }
+
+          .minimal-service-item > div:first-child {
+            font-size: 4rem;
+            left: -0.5rem;
+          }
+
+          .minimal-service-item .pl-24 {
+            padding-left: 5rem;
+          }
+
+          .minimal-service-item:hover .pl-24,
+          .minimal-service-item.group:hover > div:last-child {
+            padding-left: 5.5rem;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .minimal-service-item > div:first-child {
+            font-size: 3rem;
+            left: 0;
+            top: 1rem;
+          }
+
+          .minimal-service-item .pl-24 {
+            padding-left: 4rem;
+          }
+
+          .minimal-service-item:hover .pl-24,
+          .minimal-service-item.group:hover > div:last-child {
+            padding-left: 4rem;
+          }
+
+          .minimal-service-item p {
+            max-width: 100%;
+          }
+        }
+
         /* ============================================
            KEYFRAME ANIMATIONS
            ============================================ */
@@ -971,6 +1097,25 @@ export default function Services({ onNavigate }: ServicesProps) {
             animation-duration: 0.01ms !important;
             animation-iteration-count: 1 !important;
             transition-duration: 0.01ms !important;
+          }
+
+          .minimal-service-item {
+            opacity: 1;
+            transform: none;
+            animation: none !important;
+          }
+
+          .minimal-service-item.service-visible {
+            animation: none !important;
+          }
+
+          .minimal-service-item.service-visible > div:first-child {
+            animation: none !important;
+          }
+
+          .minimal-service-item.service-visible .minimal-line {
+            animation: none !important;
+            width: 4rem;
           }
 
           .reveal-up {
