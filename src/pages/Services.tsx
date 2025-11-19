@@ -19,26 +19,6 @@ export default function Services({ onNavigate }: ServicesProps) {
     setTimeout(() => setIsLoaded(true), 300);
   }, []);
 
-  // Intersection Observer for minimal service animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('service-visible');
-          }
-        });
-      },
-      { threshold: 0.2, rootMargin: '0px 0px -100px 0px' }
-    );
-
-    cardsRef.current.forEach((card) => {
-      if (card) observer.observe(card);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
   // Reveal on scroll for showcase section
   useEffect(() => {
     const revealElements = document.querySelectorAll('.reveal-up');
@@ -57,6 +37,7 @@ export default function Services({ onNavigate }: ServicesProps) {
 
     return () => revealObserver.disconnect();
   }, []);
+  
   // Image tilt effect
   useEffect(() => {
     const images = document.querySelectorAll('.services-visual img');
