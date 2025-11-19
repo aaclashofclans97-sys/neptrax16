@@ -93,7 +93,7 @@ export default function Services({ onNavigate }: ServicesProps) {
     },
     {
       title: 'Full-Stack Web Development',
-      description: 'Building robust, scalable web applications with cutting-edge technologies. From front-end interfaces to back-end architecture, we deliver high-performance solutions that grow with your business needs.',
+      description: 'Building robust, scalable web apps with cutting-edge technologies. From front-end interfaces to back-end architecture, we deliver high-performance solutions that grow with your business needs.',
     },
     {
       title: 'AI-Powered Chatbots',
