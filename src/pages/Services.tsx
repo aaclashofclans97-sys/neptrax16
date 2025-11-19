@@ -37,6 +37,26 @@ export default function Services({ onNavigate }: ServicesProps) {
 
     return () => revealObserver.disconnect();
   }, []);
+
+    // Intersection Observer for minimal service animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('service-visible');
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: '0px 0px -100px 0px' }
+    );
+
+    cardsRef.current.forEach((card) => {
+      if (card) observer.observe(card);
+    });
+
+    return () => observer.disconnect();
+  }, []);
   
   // Image tilt effect
   useEffect(() => {
