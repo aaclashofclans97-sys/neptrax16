@@ -101,7 +101,7 @@ export default function Services({ onNavigate }: ServicesProps) {
     },
     {
       title: 'Social Media Management',
-      description: 'Strategic social media campaigns that build communities and drive engagement. We manage your presence across platforms, create compelling content, and grow your audience organically.',
+      description: 'Strategic social media campaigns that build communities and drive engagement. We manage your \n presence across platforms, create compelling content, and grow your audience organically.',
     },
     {
       title: 'Brand Identity & Visual Design',
