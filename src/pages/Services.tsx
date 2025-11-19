@@ -57,7 +57,33 @@ export default function Services({ onNavigate }: ServicesProps) {
 
     return () => revealObserver.disconnect();
   }, []);
+  // Image tilt effect
+  useEffect(() => {
+    const images = document.querySelectorAll('.services-visual img');
 
+    images.forEach((img) => {
+      const handleMouseMove = (ev: MouseEvent) => {
+        const target = ev.currentTarget as HTMLElement;
+        const r = target.getBoundingClientRect();
+        const x = (ev.clientX - r.left) / r.width - 0.5;
+        const y = (ev.clientY - r.top) / r.height - 0.5;
+        target.style.transform = `perspective(900px) rotateX(${y * 6}deg) rotateY(${x * -6}deg) scale(1.02)`;
+      };
+
+      const handleMouseLeave = (ev: MouseEvent) => {
+        const target = ev.currentTarget as HTMLElement;
+        target.style.transform = '';
+      };
+
+      img.addEventListener('mousemove', handleMouseMove as EventListener);
+      img.addEventListener('mouseleave', handleMouseLeave as EventListener);
+
+      return () => {
+        img.removeEventListener('mousemove', handleMouseMove as EventListener);
+        img.removeEventListener('mouseleave', handleMouseLeave as EventListener);
+      };
+    });
+  }, []);
 
   const servicesList = [
     {
