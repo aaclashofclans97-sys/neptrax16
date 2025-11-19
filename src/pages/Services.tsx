@@ -58,7 +58,7 @@ export default function Services({ onNavigate }: ServicesProps) {
     return () => revealObserver.disconnect();
   }, []);
 
-  // Image tilt effect with improved stability
+  // Image tilt effect
   useEffect(() => {
     const images = document.querySelectorAll('.services-visual img');
 
@@ -89,7 +89,7 @@ export default function Services({ onNavigate }: ServicesProps) {
   const servicesList = [
     {
       title: 'Custom Website Design',
-      description: 'Crafted pixel-perfect designs that reflect your brand identity. We create stunning, user-friendly websites that captivate visitors and convert them into loyal customers through strategic visual storytelling.',
+      description: 'Crafted pixel-perfect designs that reflect your brand identity. We create stunning, user-friendly websites that captivate visitors and convert them into loyal customers through strategic visual storytelling,',
     },
     {
       title: 'Full-Stack Web Development',
@@ -136,182 +136,6 @@ export default function Services({ onNavigate }: ServicesProps) {
       description: 'Compelling content that resonates with your audience and drives action. Our expert writers craft SEO-optimized blog posts, website copy, and marketing materials that establish authority and generate leads.',
     }
   ];
-
-  return (
-    <section className="services-section">
-      <div className="container">
-        <div className="section-header reveal-up">
-          <h2>Our Services</h2>
-          <p>Comprehensive digital solutions to transform your business</p>
-        </div>
-
-        <div className="services-grid">
-          {servicesList.map((service, index) => (
-            <div
-              key={index}
-              ref={el => cardsRef.current[index] = el}
-              className="service-card"
-            >
-              <div className="service-content">
-                <h3 className="service-title">{service.title}</h3>
-                <p className="service-description">{service.description}</p>
-              </div>
-              <div className="service-hover-effect"></div>
-            </div>
-          ))}
-        </div>
-
-        <div className="services-visual">
-          <img 
-            src="/api/placeholder/600/400" 
-            alt="Services Overview"
-            className="services-image"
-          />
-        </div>
-      </div>
-
-      <style jsx>{`
-        .services-section {
-          padding: 80px 0;
-          background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-        }
-
-        .container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 20px;
-        }
-
-        .section-header {
-          text-align: center;
-          margin-bottom: 60px;
-          opacity: 0;
-          transform: translateY(30px);
-          transition: all 0.8s ease;
-        }
-
-        .section-header.in-view {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .section-header h2 {
-          font-size: 3rem;
-          font-weight: 700;
-          color: #1a202c;
-          margin-bottom: 16px;
-        }
-
-        .section-header p {
-          font-size: 1.2rem;
-          color: #4a5568;
-          max-width: 600px;
-          margin: 0 auto;
-          line-height: 1.6;
-        }
-
-        .services-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-          gap: 24px;
-          margin-bottom: 80px;
-        }
-
-        .service-card {
-          position: relative;
-          background: white;
-          border-radius: 16px;
-          padding: 32px;
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-          transition: all 0.3s ease;
-          overflow: hidden;
-          opacity: 0;
-          transform: translateY(20px);
-        }
-
-        .service-card.service-visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .service-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        .service-content {
-          position: relative;
-          z-index: 2;
-        }
-
-        .service-title {
-          font-size: 1.25rem;
-          font-weight: 600;
-          color: #1a202c;
-          margin-bottom: 12px;
-          line-height: 1.4;
-          transition: color 0.3s ease;
-        }
-
-        .service-description {
-          color: #4a5568;
-          line-height: 1.6;
-          margin: 0;
-          transition: color 0.3s ease;
-        }
-
-        .service-hover-effect {
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.05), transparent);
-          transition: left 0.6s ease;
-          z-index: 1;
-        }
-
-        .service-card:hover .service-hover-effect {
-          left: 100%;
-        }
-
-        .services-visual {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin-top: 40px;
-        }
-
-        .services-image {
-          max-width: 100%;
-          height: auto;
-          border-radius: 12px;
-          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-          transition: transform 0.3s ease;
-        }
-
-        @media (max-width: 768px) {
-          .services-section {
-            padding: 60px 0;
-          }
-
-          .section-header h2 {
-            font-size: 2.5rem;
-          }
-
-          .services-grid {
-            grid-template-columns: 1fr;
-            gap: 20px;
-          }
-
-          .service-card {
-            padding: 24px;
-          }
-        }
-      `}</style>
-    </section>
-  );
-};
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] overflow-hidden">
